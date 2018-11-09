@@ -22,6 +22,10 @@ if g:NERDTreeShowGitStatus == 0
     finish
 endif
 
+if !exists('g:NERDTreeGitStatusNodeColorization')
+    let g:NERDTreeGitStatusNodeColorization = 0
+endif
+
 if !exists('g:NERDTreeMapNextHunk')
     let g:NERDTreeMapNextHunk = ']c'
 endif
@@ -42,8 +46,9 @@ if !exists('g:NERDTreeShowIgnoredStatus')
     let g:NERDTreeShowIgnoredStatus = 0
 endif
 
-if !exists('s:NERDTreeIndicatorMap')
-    let s:NERDTreeIndicatorMap = {
+if !exists('g:NERDTreeGitStatusIndicatorMap')
+    if g:NERDTreeGitStatusWithFlags == 1
+        let s:NERDTreeIndicatorMap = {
                 \ 'Modified'  : '✹',
                 \ 'Staged'    : '✚',
                 \ 'Untracked' : '✭',
@@ -55,8 +60,43 @@ if !exists('s:NERDTreeIndicatorMap')
                 \ 'Ignored'   : '☒',
                 \ 'Unknown'   : '?'
                 \ }
+    else
+        let s:NERDTreeIndicatorMap = {
+                \ 'Modified'  : nr2char(8201),
+                \ 'Staged'    : nr2char(8239),
+                \ 'Untracked' : nr2char(8199),
+                \ 'Renamed'   : nr2char(8200),
+                \ 'Unmerged'  : nr2char(8287),
+                \ 'Deleted'   : nr2char(8195),
+                \ 'Dirty'     : nr2char(8202),
+                \ 'Clean'     : nr2char(8196),
+                \ 'Ignored'   : nr2char(8197),
+                \ 'Unknown'   : nr2char(8198)
+                \ }
+       " Hide the backets
+        augroup webdevicons_conceal_nerdtree_brackets
+          au!
+          autocmd FileType nerdtree syntax match hideBracketsInNerdTree "\]" contained conceal containedin=ALL
+          autocmd FileType nerdtree syntax match hideBracketsInNerdTree ".\[" contained conceal containedin=ALL
+          autocmd FileType nerdtree setlocal conceallevel=3
+          autocmd FileType nerdtree setlocal concealcursor=nvic
+        augroup END
+    endif
 endif
 
+if !exists('g:NERDTreeGitStatusWithFlags')
+    let g:NERDTreeGitStatusWithFlags = 1
+endif
+
+if !exists('g:NERDTreeColorMapCustom')
+    let g:NERDTreeColorMapCustom = {
+        \ "Modified"  : "#528AB3",
+        \ "Staged"    : "#538B54",
+        \ "Untracked" : "#BE5849",
+        \ "Dirty"     : "#299999",
+        \ "Clean"     : "#87939A"
+        \ }
+endif
 
 function! NERDTreeGitStatusRefreshListener(event)
     if !exists('b:NOT_A_GIT_REPOSITORY')
@@ -181,7 +221,7 @@ function! g:NERDTreeGetCWDGitStatus()
 endfunction
 
 function! s:NERDTreeGetIndicator(statusKey)
-    if exists('g:NERDTreeIndicatorMapCustom')
+    if exists('g:NERDTreeIndicatorMapCustom') && g:NERDTreeGitStatusWithFlags == 1
         let l:indicator = get(g:NERDTreeIndicatorMapCustom, a:statusKey, '')
         if l:indicator !=# ''
             return l:indicator
@@ -334,18 +374,28 @@ function! s:AddHighlighting()
                 \ }
 
     for l:name in keys(l:synmap)
-        exec 'syn match ' . l:name . ' #' . escape(l:synmap[l:name], '~') . '# containedin=NERDTreeFlags'
+   		if g:NERDTreeGitStatusNodeColorization == 1
+          exec 'syn match '.l:name.' ".*'.l:synmap[l:name].'.*" containedin=NERDTreeDir'
+          exec 'syn match '.l:name.' ".*'.l:synmap[l:name].'.*" containedin=NERDTreeFile'
+          exec 'syn match '.l:name.' ".*'.l:synmap[l:name].'.*" containedin=NERDTreeExecFile'
+        endif
+      	if g:NERDTreeGitStatusWithFlags == 1
+        	exec 'syn match ' . l:name . ' #' . escape(l:synmap[l:name], '~') . '# containedin=NERDTreeFlags'
+        endif
     endfor
 
-    hi def link NERDTreeGitStatusModified Special
-    hi def link NERDTreeGitStatusStaged Function
-    hi def link NERDTreeGitStatusRenamed Title
-    hi def link NERDTreeGitStatusUnmerged Label
-    hi def link NERDTreeGitStatusUntracked Comment
-    hi def link NERDTreeGitStatusDirDirty Tag
-    hi def link NERDTreeGitStatusDirClean DiffAdd
-    " TODO: use diff color
-    hi def link NERDTreeGitStatusIgnored DiffAdd
+    execute('hi NERDTreeGitModified guifg=' . g:NERDTreeColorMapCustom["Modified"])
+    execute('hi NERDTreeGitStaged guifg=' . g:NERDTreeColorMapCustom["Staged"])
+    execute('hi NERDTreeGitUntracked guifg=' . g:NERDTreeColorMapCustom["Untracked"])
+    execute('hi NERDTreeGitDirDirty guifg=' . g:NERDTreeColorMapCustom["Dirty"])
+    execute('hi NERDTreeGitDirClean guifg=' . g:NERDTreeColorMapCustom["Clean"])
+   
+    hi def link NERDTreeGitStatusModified NERDTreeGitModified
+    hi def link NERDTreeGitStatusStaged NERDTreeGitStaged
+    hi def link NERDTreeGitStatusUntracked NERDTreeGitUntracked
+    hi def link NERDTreeGitStatusDirDirty NERDTreeGitDirDirty
+    hi def link NERDTreeGitStatusDirClean NERDTreeGitDirClean
+
 endfunction
 
 function! s:SetupListeners()
