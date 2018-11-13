@@ -1,9 +1,10 @@
 nerdtree-git-plugin
 ===================
 
-A plugin of NERDTree showing git status flags. Works with the **LATEST** version of NERDTree.
+A plugin of NERDTree showing git status flags and/or highlights the file names according to the git status. Works with the **LATEST** version of NERDTree.
 
 The original project [git-nerdtree](https://github.com/Xuyuanp/git-nerdtree) will not be maintained any longer.
+Also credits to: [@robinfehr](https://github.com/robinfehr/nerdtree-git-plugin) 
 
 
 ![Imgur](http://i.imgur.com/jSCwGjU.gif?1)
@@ -12,7 +13,7 @@ The original project [git-nerdtree](https://github.com/Xuyuanp/git-nerdtree) wil
 
 For Pathogen
 
-`git clone https://github.com/Xuyuanp/nerdtree-git-plugin.git ~/.vim/bundle/nerdtree-git-plugin`
+`git clone https://github.com/tsony-tsonev/nerdtree-git-plugin.git ~/.vim/bundle/nerdtree-git-plugin`
 
 Now reload the `vim`
 
@@ -20,19 +21,19 @@ For Vundle
 
 `Plugin 'scrooloose/nerdtree'`
 
-`Plugin 'Xuyuanp/nerdtree-git-plugin'`
+`Plugin 'tsony-tsonev/nerdtree-git-plugin'`
 
 For NeoBundle
 
 `NeoBundle 'scrooloose/nerdtree'`
 
-`NeoBundle 'Xuyuanp/nerdtree-git-plugin'`
+`NeoBundle 'tsony-tsonev/nerdtree-git-plugin'`
 
 For Plug
 
 `Plug 'scrooloose/nerdtree'`
 
-`Plug 'Xuyuanp/nerdtree-git-plugin'`
+`Plug 'tsony-tsonev/nerdtree-git-plugin'`
 
 ## FAQ
 
@@ -49,6 +50,8 @@ This issue has been fixed.
 
 Use this variable to change symbols.
 
+`let g:NERDTreeGitStatusWithFlags = 1`
+
 	```vimscript
 	let g:NERDTreeIndicatorMapCustom = {
 	    \ "Modified"  : "✹",
@@ -63,6 +66,28 @@ Use this variable to change symbols.
 	    \ "Unknown"   : "?"
 	    \ }
 	 ```
+> How to enable and customize file colors?
+
+Use this variable to change colors.
+
+`let g:WebDevIconsUnicodeDecorateFolderNodes = 1`
+
+`let g:NERDTreeGitStatusNodeColorization = 1`
+
+```vimscript
+let g:NERDTreeColorMapCustom = {
+    \ "Modified"  : "#528AB3",  
+    \ "Staged"    : "#538B54",  
+    \ "Untracked" : "#BE5849",  
+    \ "Dirty"     : "#299999",  
+    \ "Clean"     : "#87939A"   
+    \ }                         
+```
+> Want to disable the flags or the colors? Just set:
+
+`let g:NERDTreeGitStatusNodeColorization = 0`
+OR
+`let g:NERDTreeGitStatusWithFlags = 1`
 
 > How to show `ignored` status?
 
@@ -73,3 +98,4 @@ Use this variable to change symbols.
 *  [scrooloose](https://github.com/scrooloose): Open API for me.
 *  [git_nerd](https://github.com/swerner/git_nerd): Where my idea comes from.
 *  [PickRelated](https://github.com/PickRelated): Add custom indicators & Review code.
+*  [@robinfehr](https://github.com/robinfehr/nerdtree-git-plugin): Where the idea for the colors came from.
