@@ -6,8 +6,10 @@ A plugin of NERDTree showing git status flags and/or highlights the file names a
 The original project [git-nerdtree](https://github.com/Xuyuanp/git-nerdtree) will not be maintained any longer.
 Also credits to: [@robinfehr](https://github.com/robinfehr/nerdtree-git-plugin) 
 
+![screenshot from 2018-11-22 17-24-44](https://user-images.githubusercontent.com/6035262/48911547-a4519c00-ee7b-11e8-9b60-3d853f790d2c.png)
 
-![Imgur](http://i.imgur.com/jSCwGjU.gif?1)
+## Dependencies
+[vim-devicons](https://github.com/ryanoasis/vim-devicons) and [vim-nerdtree-syntax-highlight](https://github.com/tiagofumo/vim-nerdtree-syntax-highlight)
 
 ## Installation
 
@@ -50,31 +52,28 @@ This issue has been fixed.
 
 Use this variable to change symbols.
 
-`let g:NERDTreeGitStatusWithFlags = 1`
-
-	```vimscript
-	let g:NERDTreeIndicatorMapCustom = {
-	    \ "Modified"  : "✹",
-	    \ "Staged"    : "✚",
-	    \ "Untracked" : "✭",
-	    \ "Renamed"   : "➜",
-	    \ "Unmerged"  : "═",
-	    \ "Deleted"   : "✖",
-	    \ "Dirty"     : "✗",
-	    \ "Clean"     : "✔︎",
-        \ 'Ignored'   : '☒',
-	    \ "Unknown"   : "?"
-	    \ }
-	 ```
+```
+let g:NERDTreeGitStatusWithFlags = 1
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+```
 > How to enable and customize file colors?
 
 Use this variable to change colors.
 
-`let g:WebDevIconsUnicodeDecorateFolderNodes = 1`
-
-`let g:NERDTreeGitStatusNodeColorization = 1`
-
-```vimscript
+```
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:NERDTreeGitStatusNodeColorization = 1
 let g:NERDTreeColorMapCustom = {
     \ "Modified"  : "#528AB3",  
     \ "Staged"    : "#538B54",  
