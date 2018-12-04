@@ -69,7 +69,7 @@ let g:NERDTreeIndicatorMapCustom = {
 ```
 > How to enable and customize file colors?
 
-Use this variable to change colors.
+Use this variable to change colors. (It will use the colors for guifg)
 
 ```
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -82,6 +82,21 @@ let g:NERDTreeColorMapCustom = {
     \ "Clean"     : "#87939A"   
     \ }                         
 ```
+
+If you need more complex color solution the following custom mapping could be used
+
+```
+let g:NERDTreeColorMapCustom = {
+    \ "Modified"  : ["#528AB3", "NONE", "NONE", "NONE"],  
+    \ "Staged"    : ["#538B54", "NONE", "NONE", "NONE"],  
+    \ "Untracked" : ["#BE5849", "NONE", "NONE", "NONE"],  
+    \ "Dirty"     : ["#299999", "NONE", "NONE", "NONE"],  
+    \ "Clean"     : ["#87939A", "NONE", "NONE", "NONE"]   
+    \ }
+```
+The mapping array is the following [guifg, ctermfg, guibg, ctermbg]
+Note: I you want to omit some value you must provide "NONE" as value
+
 > Want to disable the flags or the colors? Just set:
 
 `let g:NERDTreeGitStatusNodeColorization = 0`
