@@ -70,6 +70,7 @@ let g:NERDTreeIndicatorMapCustom = {
 > How to enable and customize file colors?
 
 Use this variable to change colors. (It will use the colors for guifg)
+Note: git ignored status is disabled by default, see below how to enable.
 
 ```
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -79,7 +80,8 @@ let g:NERDTreeColorMapCustom = {
     \ "Staged"    : "#538B54",  
     \ "Untracked" : "#BE5849",  
     \ "Dirty"     : "#299999",  
-    \ "Clean"     : "#87939A"   
+    \ "Clean"     : "#87939A",   
+    \ "Ignored"   : "#808080"   
     \ }                         
 ```
 
@@ -92,6 +94,7 @@ let g:NERDTreeColorMapCustom = {
     \ "Untracked" : ["#BE5849", "NONE", "NONE", "NONE"],  
     \ "Dirty"     : ["#299999", "NONE", "NONE", "NONE"],  
     \ "Clean"     : ["#87939A", "NONE", "NONE", "NONE"]   
+    \ "Ignored"   : ["#808080", "NONE", "NONE", "NONE"]   
     \ }
 ```
 The mapping array is the following [guifg, ctermfg, guibg, ctermbg]

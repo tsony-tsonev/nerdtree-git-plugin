@@ -94,7 +94,8 @@ if !exists('g:NERDTreeColorMapCustom')
         \ "Staged"    : "#538B54",
         \ "Untracked" : "#BE5849",
         \ "Dirty"     : "#299999",
-        \ "Clean"     : "#87939A"
+        \ "Clean"     : "#87939A",
+        \ "Ignored"   : "#808080"
         \ }
 endif
 
@@ -391,20 +392,22 @@ function! s:AddHighlighting()
         execute('hi NERDTreeGitUntracked guifg=' . g:NERDTreeColorMapCustom["Untracked"])
         execute('hi NERDTreeGitDirDirty guifg=' . g:NERDTreeColorMapCustom["Dirty"])
         execute('hi NERDTreeGitDirClean guifg=' . g:NERDTreeColorMapCustom["Clean"])
+        execute('hi NERDTreeGitIgnored guifg=' . g:NERDTreeColorMapCustom["Ignored"])
     else " custom color mapping is of type array [guifg, ctermfg, guibg, ctermbg]
         execute('hi NERDTreeGitModified guifg=' . g:NERDTreeColorMapCustom["Modified"][0] . ' ctermfg=' . g:NERDTreeColorMapCustom["Modified"][1] . ' guibg=' . g:NERDTreeColorMapCustom["Modified"][2] . ' ctermbg=' . g:NERDTreeColorMapCustom["Modified"][3])
         execute('hi NERDTreeGitStaged guifg=' . g:NERDTreeColorMapCustom["Staged"][0] . ' ctermfg=' . g:NERDTreeColorMapCustom["Staged"][1] . ' guibg=' . g:NERDTreeColorMapCustom["Staged"][2] . ' ctermbg=' . g:NERDTreeColorMapCustom["Staged"][3])
         execute('hi NERDTreeGitUntracked guifg=' . g:NERDTreeColorMapCustom["Untracked"][0] . ' ctermfg=' . g:NERDTreeColorMapCustom["Untracked"][1] . ' guibg=' . g:NERDTreeColorMapCustom["Untracked"][2] . ' ctermbg=' . g:NERDTreeColorMapCustom["Untracked"][3])
         execute('hi NERDTreeGitDirDirty guifg=' . g:NERDTreeColorMapCustom["Dirty"][0] . ' ctermfg=' . g:NERDTreeColorMapCustom["Dirty"][1] . ' guibg=' . g:NERDTreeColorMapCustom["Dirty"][2] . ' ctermbg=' . g:NERDTreeColorMapCustom["Dirty"][3])
         execute('hi NERDTreeGitDirClean guifg=' . g:NERDTreeColorMapCustom["Clean"][0] . ' ctermfg=' . g:NERDTreeColorMapCustom["Clean"][1] . ' guibg=' . g:NERDTreeColorMapCustom["Clean"][2] . ' ctermbg=' . g:NERDTreeColorMapCustom["Clean"][3])
+        execute('hi NERDTreeGitIgnored guifg=' . g:NERDTreeColorMapCustom["Ignored"][0] . ' ctermfg=' . g:NERDTreeColorMapCustom["Ignored"][1] . ' guibg=' . g:NERDTreeColorMapCustom["Ignored"][2] . ' ctermbg=' . g:NERDTreeColorMapCustom["Ignored"][3])
     endif
-    
    
     hi def link NERDTreeGitStatusModified NERDTreeGitModified
     hi def link NERDTreeGitStatusStaged NERDTreeGitStaged
     hi def link NERDTreeGitStatusUntracked NERDTreeGitUntracked
     hi def link NERDTreeGitStatusDirDirty NERDTreeGitDirDirty
     hi def link NERDTreeGitStatusDirClean NERDTreeGitDirClean
+    hi def link NERDTreeGitStatusIgnored NERDTreeGitIgnored
 
 endfunction
 
