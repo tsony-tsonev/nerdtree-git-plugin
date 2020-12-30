@@ -194,7 +194,14 @@ function! g:NERDTreeGetGitStatusPrefix(path)
         call g:NERDTreeGitStatusRefresh()
     endif
     let l:pathStr = a:path.str()
-    let l:cwd = b:NERDTree.root.path.str() . a:path.Slash()
+    let l:pathSlash = '/'
+    if nerdtree#runningWindows()
+        if exists('+shellslash') && &shellslash
+            let l:pathSlash = '/'
+        endif
+        let l:pathSlash = '\'
+    endif
+    let l:cwd = b:NERDTree.root.path.str() . l:pathSlash
     if nerdtree#runningWindows()
         let l:pathStr = a:path.WinToUnixPath(l:pathStr)
         let l:cwd = a:path.WinToUnixPath(l:cwd)
